@@ -45,3 +45,44 @@ Arquivos em formato Parquet
 ---
 
 ## 📁 Estrutura do projeto
+
+dags/
+└── currency_ingestion_dag.py
+
+ingestion/
+├── pipeline.py
+└── source.py
+
+scripts/
+└── ready_parquet.py
+
+docker-compose.yaml
+Dockerfile
+README.md
+
+---
+
+## ▶️ Como executar o projeto
+
+1. Clonar o repositório:
+```bash
+git clone <SEU_LINK_AQUI>
+Subir os containers:
+docker compose up --build
+Acessar o Airflow:
+http://localhost:8080
+
+Login:
+
+user: admin
+senha: admin
+Executar a DAG:
+freecurrency_hourly_ingestion
+
+---
+
+## 🚀 Depois de colar
+
+👉 substitui:
+```bash
+<SEU_LINK_AQUI>
