@@ -1,88 +1,85 @@
-# 🚀 Pipeline de Dados com Airflow, dlt e MinIO (S3)
+🚀 Pipeline de Dados com Airflow, dlt e MinIO (S3)
+Pipeline de dados completo simulando um cenário real de engenharia de dados. O projeto realiza a ingestão automatizada de dados de câmbio via API, processa e armazena em um Data Lake local no formato Parquet, com orquestração via Apache Airflow.
 
-Este projeto implementa um pipeline de dados completo, simulando um cenário real de engenharia de dados.
+🏗️ Arquitetura
+FreeCurrency API
+      │
+      ▼
+ dlt (ingestão)
+      │
+      ▼
+Apache Airflow (orquestração via DAG)
+      │
+      ▼
+  MinIO / S3 (Data Lake)
+      │
+      ▼
+Arquivos Parquet
 
-A pipeline realiza a ingestão de dados de uma API de câmbio (FreeCurrency API), processa os dados e armazena em um data lake no formato Parquet utilizando MinIO (S3 local), com orquestração via Apache Airflow.
+🛠️ Tecnologias utilizadas
+FerramentaFinalidadePythonLinguagem principalApache AirflowOrquestração do pipeline via DAGsdlt (data load tool)Ingestão e carga de dadosMinIOData Lake local (compatível com S3)Docker / Docker ComposeContainerização do ambientePandasManipulação de dadosPyArrowEscrita em formato Parquet
 
----
+⚙️ Funcionalidades
 
-## 🏗️ Arquitetura
+✅ Ingestão automatizada de dados via API (FreeCurrency)
+✅ Orquestração com Apache Airflow (DAG com execução horária)
+✅ Armazenamento em Data Lake simulado com MinIO (S3)
+✅ Dados persistidos em formato Parquet (eficiente e escalável)
+✅ Ambiente 100% containerizado com Docker
 
-Fluxo do pipeline:
 
-API (FreeCurrency)
-    ↓
-dlt (extração e carga)
-    ↓
-Apache Airflow (orquestração)
-    ↓
-MinIO (S3 - Data Lake)
-    ↓
-Arquivos em formato Parquet
+📁 Estrutura do projeto
+airflow-dlt-s3-data-pipeline/
+│
+├── dags/
+│   └── currency_ingestion_dag.py   # DAG principal do Airflow
+│
+├── ingestion/
+│   ├── pipeline.py                 # Configuração do pipeline dlt
+│   └── source.py                   # Fonte de dados (FreeCurrency API)
+│
+├── scripts/
+│   └── ready_parquet.py            # Leitura e validação dos arquivos Parquet
+│
+├── data/
+│   └── latest/                     # Dados mais recentes ingeridos
+│
+├── docker-compose.yaml             # Orquestração dos containers
+├── dockerfile                      # Imagem customizada do Airflow
+├── pyproject.toml                  # Dependências do projeto
+└── README.md
 
----
+▶️ Como executar o projeto
+Pré-requisitos
 
-## 🚀 Tecnologias utilizadas
+Docker instalado
+Docker Compose instalado
 
-- Python
-- Apache Airflow
-- dlt (data load tool)
-- MinIO (S3 local)
-- Docker / Docker Compose
-- Pandas
-- PyArrow
+Passo a passo
+1. Clone o repositório:
+bashgit clone https://github.com/thiagoqvs/airflow-dlt-s3-data-pipeline.git
+cd airflow-dlt-s3-data-pipeline
+2. Suba os containers:
+bashdocker compose up --build
+3. Acesse o Airflow:
+URL:   http://localhost:8080
+User:  admin
+Pass:  admin
+4. Ative e execute a DAG:
+Nome da DAG: freecurrency_hourly_ingestion
+5. Acesse o MinIO para visualizar os dados:
+URL:   http://localhost:9001
 
----
+📊 Sobre os dados
+Os dados são coletados da FreeCurrency API, que fornece taxas de câmbio em tempo real. O pipeline coleta, transforma e armazena os dados em formato Parquet particionado por data no bucket do MinIO.
 
-## ⚙️ Funcionalidades
+🧠 Aprendizados e decisões técnicas
 
-- Ingestão de dados via API (FreeCurrency)
-- Orquestração de pipeline com Airflow
-- Armazenamento em Data Lake (MinIO)
-- Escrita em formato Parquet
-- Execução automatizada via DAG
+MinIO foi escolhido por ser compatível com a API do S3, permitindo simular um ambiente de cloud localmente
+dlt simplifica a ingestão de dados sem necessidade de boilerplate code
+Parquet foi escolhido por ser um formato colunar, eficiente para análises posteriores
+Docker Compose garante que o ambiente seja reproduzível em qualquer máquina
 
----
 
-## 📁 Estrutura do projeto
-
-dags/
-└── currency_ingestion_dag.py
-
-ingestion/
-├── pipeline.py
-└── source.py
-
-scripts/
-└── ready_parquet.py
-
-docker-compose.yaml
-Dockerfile
-README.md
-
----
-
-## ▶️ Como executar o projeto
-
-1. Clonar o repositório:
-```bash
-git clone <SEU_LINK_AQUI>
-Subir os containers:
-docker compose up --build
-Acessar o Airflow:
-http://localhost:8080
-
-Login:
-
-user: admin
-senha: admin
-Executar a DAG:
-freecurrency_hourly_ingestion
-
----
-
-## 🚀 Depois de colar
-
-👉 substitui:
-```bash
-<SEU_LINK_AQUI>
+👤 Autor
+Thiago Victorino
